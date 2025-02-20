@@ -52,7 +52,7 @@ public class Village {
 			}
 			return EtalProd;
 		}
-		Etal trouverVendeur(Gaulois gaulois){
+		private Etal trouverVendeur(Gaulois gaulois){
 			for(int i = 0; i < etals.length; i++){
 				if (etals[i].getVendeur() == gaulois){
 					return etals[i];
@@ -120,11 +120,38 @@ public class Village {
 		String reponse = "";
 		if (indice != -1){
 			marche.utiliserEtal(indice ,vendeur, produit, nbProduit);
-			reponse = "Le vendeur" + vendeur.getNom() + "vends le produit" + produit + "à l'Etal N°" + indice + ".\n";
+			reponse = "Le vendeur" + vendeur.getNom() + "vends le produit '" + produit + "' à l'Etal N°" + indice + ".";
 		}
 		else {
-			System.out.println("eza");
+			reponse = vendeur.getNom() + "cherche un endroit pour vendre"  + nbProduit + " " + produit + ".";
 		}
 		return reponse;
+	}
+	public String rechercherVendeursProduit(String produit){
+		Etal[] etalsAvecProduit = marche.trouverEtals(produit);
+		String message;
+		if (etalsAvecProduit.length == 0) {
+			message = "Il n'y a pas de vendeur qui propose des " + produit + " au marché.";
+			return message;
+		} else {
+			message = "Les vendeurs qui proposent des "+ produit + " sont :\n";
+			for (int i = 0; i < etalsAvecProduit.length; i++) {
+				Gaulois vendeur = etalsAvecProduit[i].getVendeur();
+				message += "     - " + vendeur.getNom() + "\n";
+			}
+		}
+		return message;
+	}
+	public Etal rechercherEtal(Gaulois vendeur){
+		return marche.trouverVendeur(vendeur);
+	}
+	public String partirVendeur(Gaulois vendeur){
+		String message = rechercherEtal(vendeur).libererEtal();
+		return message;
+	}
+	public String afficherMarche(){
+		StringBuilder chaine = new StringBuilder();
+		chaine.append(marche.afficherMarche());
+		return chaine.toString();
 	}
 }
