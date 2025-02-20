@@ -9,9 +9,10 @@ public class Village {
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		Marche marche = new Marche(nbEtals);
 	}
 
 	private static class Marche{
@@ -37,6 +38,7 @@ public class Village {
 
 		private Etal[] trouverEtals(String produit){
 			int c = 0;
+			int j = 0;
 			for(int i = 0; i < etals.length; i++){
 				if (etals[i].contientProduit(produit) == true){
 					c++;
@@ -45,7 +47,8 @@ public class Village {
 			Etal[] EtalProd = new Etal[c];
 			for(int i = 0; i < etals.length; i++){
 				if (etals[i].contientProduit(produit) == true){
-					EtalProd[i] = etals[i];
+					EtalProd[j] = etals[i];
+					j++;
 				};
 			}
 			return EtalProd;
@@ -67,7 +70,9 @@ public class Village {
 				if (etals[i].isEtalOccupe() == false){
 					nbEtalsVides++;
 				}
-				renvoi = renvoi + " " + etals[i].afficherEtal();
+				else {
+					renvoi = renvoi + etals[i].afficherEtal() +  " ";
+				}
 			}
 			renvoi += "Il reste " + nbEtalsVides + " étals non utilisés dans le marché.\n";
 			return renvoi;
