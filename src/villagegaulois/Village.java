@@ -13,6 +13,7 @@ public class Village {
 			super(message);
 		}
 	}
+
 	private String nom;
 	private Chef chef;
 	private Gaulois[] villageois;

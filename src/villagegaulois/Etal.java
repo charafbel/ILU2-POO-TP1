@@ -59,9 +59,7 @@ public class Etal {
 			throw new IllegalStateException("Rien a vendre.");
 		}
 		if (acheteur == null) {
-			NullPointerException e = new NullPointerException("L'acheteur ne peut pas être inexistant");
-			e.printStackTrace(System.err);
-			return " " ;
+			throw new IllegalArgumentException("L'acheteur ne peut pas être inexistant");
 		}
 		if (quantiteAcheter < 1) {
 			throw new IllegalArgumentException("La quantité achetée doit être supérieure à 0");
